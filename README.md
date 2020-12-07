@@ -1,0 +1,1 @@
+# django-seo-analiz
