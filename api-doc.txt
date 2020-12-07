@@ -1,0 +1,244 @@
+Önemli Not : Tüm api datalarında ilk kontrol edilmesi gereken yer code kısmı. Eğer buradaki değer 0 ise sorunsuz bir şekilde ver geldi demektir. Eğer buradaki değer 1 ise apiye giden değerlerde bir hata var anlamına gelir. Ve ardından code_ kımında hatanın sebebi belirtilmiştir. Tüm jsonlarda aynı yapı kullanılacaktır.
+
+------ Takip edilecek site eklemek
+
+Url = http://api.walpap.com/serp/add-site
+Method = POST
+
+Post edilmesi gereken değişkenler
+
+request.POST.get('uid', None) = Üyenin id'si
+request.POST.get('site_url', None) = Eklenmek istenen sitenin url'si.
+request.POST.get('key', None) = Doğrulama için kullanılacak key
+request.POST.get('rank_time', None) = Sitenin takip edileceği süre. Yani üyenin kalan üyelik süresi.
+
+Not : site_url gönderilirken  içerisinden / (slash) ve https,http,www gibi ek yerler regex ile kontrol edilip ham url gönderilmeli.
+
+Json Data Yapısı
+
+data =  {
+        "data": 
+        {
+            "uid":None,
+            "site_url":None,
+            "rank_time":None
+        },
+        "code":1,
+        "code_":"OK"
+        }
+
+--------------------------------------------------------
+
+------ Takip edilen siteyi silmek. Site silindiğinde tüm takip verileri silinir.
+
+Url = http://api.walpap.com/serp/delete-site
+Method = POST
+
+Post edilmesi gereken değişkenler
+
+request.POST.get('uid', None) = Üyenin id'si
+request.POST.get('site_url', None) = Silmek istediğiniz sitenin url'si
+request.POST.get('key', None) = Doğrulama için kullanılacak key
+
+Not : site_url gönderilirken  içerisinden / (slash) ve https,http,www gibi ek yerler regex ile kontrol edilip ham url gönderilmeli.
+
+Json Data Yapısı
+
+data =  {
+            "data": 
+            {
+                "uid":None,
+                "site_url":None
+            },
+            "code":1,
+            "code_":"OK",
+    }
+
+--------------------------------------------------------
+
+------ Sitenin takip süresini uzatma. Üye yeni paket aldığında vs kullanılacak.
+
+Url = http://api.walpap.com/serp/update-rank-time
+Method = POST
+
+Post edilmesi gereken değişkenler
+
+request.POST.get('uid', None) = Üyenin id'si
+request.POST.get('site_url', None) = Silmek istediğiniz sitenin url'si
+request.POST.get('key', None) = Doğrulama için kullanılacak key
+request.POST.get('rank_time', None) = Sitenin takip edileceği süre. Yani üyenin kalan üyelik süresi. Üye olduğu günden itibaren hesaplanarak her üyelik yenilenmesinde gönderilmeli.
+
+Not : site_url gönderilirken  içerisinden / (slash) ve https,http,www gibi ek yerler regex ile kontrol edilip ham url gönderilmeli.
+
+Json Data Yapısı
+
+data =  {
+        "data": 
+        {
+            "uid":None,
+            "site_url":None,
+            "rank_time":None
+        },
+        "code":1,
+        "code_":"OK"
+        }
+
+
+--------------------------------------------------------
+
+------ Site için takip edilecek kelime ekleme sayfasının ayarları
+
+Url = http://api.walpap.com/serp/add-keyword-setting
+Method = POST
+
+Post edilmesi gereken değişkenler
+
+key = request.POST.get('key', None) = doğrulama için kullanılacak değer
+
+Json Data Yapısı
+
+data = {
+    "data": {
+        "search_engine": [
+            [
+                "GOOGLE"
+            ],
+            [
+                "YANDEX"
+            ]
+        ],
+        "platform": [
+            [
+                1,
+                "Mobile / Android"
+            ],
+            [
+                2,
+                "Mobile / Ios"
+            ],
+            [
+                3,
+                "Tablet / Android"
+            ],
+            [
+                4,
+                "Tablet / Ios"
+            ],
+            [
+                5,
+                "Desktop"
+            ]
+        ],
+        "languages": [
+            [
+                "Espanol",
+                "es"
+            ],
+            [
+                "İngilizce",
+                "en-au"
+            ],
+            [
+                "France",
+                "fr"
+            ],
+            [
+                "Almanca",
+                "de"
+            ]
+        ],
+        "locations": {
+            "location_city": [
+                [
+                    "asdasd",
+                    6.555,
+                    5.5555
+                ]
+            ],
+            "location_country": [
+                [
+                    "Global",
+                    37.090244,
+                    95.712891
+                ],
+                [
+                    "Türkiye",
+                    38.7391493,
+                    26.1572996
+                ]
+            ],
+            "location_private": [
+                [
+                    "özel konum",
+                    4,
+                    4
+                ]
+            ]
+        }
+    },
+    "code": 0,
+    "code_": "OK"
+}
+
+
+--------------------------------------------------------
+
+------ Site için takip edilecek kelime ekleme
+
+Url = http://api.walpap.com/serp/add-keyword
+Method = POST
+
+Post edilmesi gereken değişkenler
+
+uid = request.POST.get('uid', None)
+site_url = request.POST.get('site_url', None)
+key = request.POST.get('key', None)
+keyword = request.POST.get('keyword', None) = takip edilecek kelime
+l_lang = request.POST.get('l_lang', None) = takip edilecek dil
+l_name = request.POST.get('l_name', None) = lokasyon ismi
+l_x = request.POST.get('l_x', None) = lokasyon x
+l_y = request.POST.get('l_y', None) = locasyon  y
+platform_id = request.POST.get('platform_id', None) = arama yapılacak playform id si
+
+Not = Bu sayfadaki ayarları ve seçenekleri bir önceki ayar sayfasından rahatlıkla alabilirsiniz. Detaylı konuşuruz zaten.
+
+Json Data Yapısı
+
+{
+    "data": {
+        "uid": "2",
+        "site_url": "google.com",
+        "keyword": "asd",
+        "l_lang": "asd",
+        "l_name": "asd",
+        "l_x": "123.555",
+        "l_y": "123.555",
+        "platform": "Mobile / Android"
+    },
+    "code": 0,
+    "code_": "OK"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
